@@ -1,8 +1,13 @@
 package com.epam.tat.listprocessor.impl;
 
 import com.epam.tat.listprocessor.IListProcessor;
+import com.epam.tat.listprocessor.exception.ListProcessorException;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Function Description:
@@ -27,7 +32,16 @@ public class ListProcessor implements IListProcessor {
 	 */
 	@Override
 	public String getSecondStringByLength(List<String> list) {
-		throw new UnsupportedOperationException("You need to implement this method");
+		try {
+			return list.stream()
+					.sorted(Comparator.comparing(String::length).reversed())
+					.skip(1)
+					.findFirst()
+					.get();
+		} catch (Exception e){
+			throw new ListProcessorException(e);
+		}
+
 	}
 
 	/**
@@ -44,7 +58,27 @@ public class ListProcessor implements IListProcessor {
 	 */
 	@Override
 	public List<String> getSortedListByLength(List<String> list) {
-		throw new UnsupportedOperationException("You need to implement this method");
+		try {
+			return list.stream().sorted(Comparator.comparing(String::length)).collect(Collectors.toList());
+		} catch (Exception e) {
+			throw new ListProcessorException(e);
+		}
+	}
+
+	List<Character> vowels = List.of('A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o');
+	List<Character> digits = List.of('1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
+
+	public int calcCountOfVowels(String string){
+		int countOfVowels = 0;
+		for (char ch : string.toCharArray()){
+			if (digits.contains(ch)){
+				continue;
+			}
+			if (vowels.contains(ch)) {
+				countOfVowels++;
+			}
+		}
+		return countOfVowels;
 	}
 
 	/**
@@ -60,9 +94,29 @@ public class ListProcessor implements IListProcessor {
 	 * @param list - input data
 	 * @return sort list by string length
 	 */
+
 	@Override
 	public List<String> getSortedListByCountOfVowels(List<String> list) {
-		throw new UnsupportedOperationException("You need to implement this method");
+		try {
+			return list.stream()
+					.sorted(Comparator.comparing(this::calcCountOfVowels).thenComparing(String::compareTo))
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			throw new ListProcessorException(e);
+		}
+	}
+
+	public int calcCountOfConsonants(String string){
+		int countOfConsonants = 0;
+		for (char ch : string.toCharArray()){
+			if (digits.contains(ch)){
+				continue;
+			}
+			if (!vowels.contains(ch)) {
+				countOfConsonants++;
+			}
+		}
+		return countOfConsonants;
 	}
 
 	/**
@@ -78,9 +132,16 @@ public class ListProcessor implements IListProcessor {
 	 * @param list - input data
 	 * @return sort list by string length
 	 */
+
 	@Override
 	public List<String> getSortedListByCountOfConsonants(List<String> list) {
-		throw new UnsupportedOperationException("You need to implement this method");
+		try {
+			return list.stream()
+					.sorted(Comparator.comparing(this::calcCountOfConsonants).thenComparing(String::compareTo))
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			throw new ListProcessorException(e);
+		}
 	}
 
 	/**
@@ -97,7 +158,22 @@ public class ListProcessor implements IListProcessor {
 	 */
 	@Override
 	public List<String> changeByPlacesFirstAndLastSymbolsInEachSecondStringOfList(List<String> list) {
-		throw new UnsupportedOperationException("You need to implement this method");
+		StringBuilder stringBuilder = new StringBuilder();
+		try {
+			for (int i = 1; i < list.size(); i = i + 2) {
+				String string = list.get(i);
+				char first = string.charAt(0);
+				char last = string.charAt(string.length() - 1);
+				stringBuilder.append(string);
+				stringBuilder.setCharAt(0, last);
+				stringBuilder.setCharAt(string.length() - 1, first);
+				list.set(i, stringBuilder.toString());
+				stringBuilder.setLength(0);
+			}
+			return list;
+		} catch (Exception e) {
+			throw new ListProcessorException(e);
+		}
 	}
 
 	/**
@@ -114,6 +190,10 @@ public class ListProcessor implements IListProcessor {
 	 */
 	@Override
 	public List<String> reverseStringsOfList(List<String> list) {
-		throw new UnsupportedOperationException("You need to implement this method");
+		try {
+			return list.stream().map(s -> new StringBuilder(s).reverse().toString()).collect(Collectors.toList());
+		} catch (Exception e) {
+			throw new ListProcessorException(e);
+		}
 	}
 }

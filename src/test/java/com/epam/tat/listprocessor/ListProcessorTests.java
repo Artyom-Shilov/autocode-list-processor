@@ -13,9 +13,7 @@ class ListProcessorTests extends AbstractTest {
     void shouldChangeByPlacesFirstAndLastLettersInEachSecondStringOfList() {
         List<String> inputList = asList("bb", "ab1", "b", "Bab3", "bb333B", "bB333", "b3b", "bb", "b3b", "b");
         List<String> expectedList = asList("bb", "1ba", "b", "3abB", "bb333B", "3B33b", "b3b", "bb", "b3b", "b");
-
         List<String> actualString = testClass.changeByPlacesFirstAndLastSymbolsInEachSecondStringOfList(inputList);
-
         Assertions.assertEquals(expectedList, actualString, "Wrong result of method");
     }
 
@@ -44,7 +42,6 @@ class ListProcessorTests extends AbstractTest {
     void shouldSortListByCountOfConsonants() {
         List<String> inputList = asList("bb", "ab1", "b", "Bb3", "bb333B", "bB333", "b3b", "bb");
         List<String> expectedList = asList("ab1", "b", "Bb3", "b3b", "bB333", "bb", "bb", "bb333B");
-
         List<String> actualString = testClass.getSortedListByCountOfConsonants(inputList);
 
         Assertions.assertEquals(expectedList, actualString, "Wrong result of method");
