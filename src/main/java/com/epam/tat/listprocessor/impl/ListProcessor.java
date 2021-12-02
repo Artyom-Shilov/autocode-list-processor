@@ -161,7 +161,7 @@ public class ListProcessor implements IListProcessor {
         for (int i = 1; i < list.size(); i = i + 2) {
             String string = list.get(i);
             if (string.length() == 0) {
-                throw new ListProcessorException("string is too short");
+                throw new ListProcessorException(list.toString());
             }
             char first = string.charAt(0);
             char last = string.charAt(string.length() - 1);
