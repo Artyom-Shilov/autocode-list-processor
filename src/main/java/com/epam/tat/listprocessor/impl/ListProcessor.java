@@ -66,9 +66,6 @@ public class ListProcessor implements IListProcessor {
     public int calcCountOfVowels(String string) {
         int countOfVowels = 0;
         for (char ch : string.toCharArray()) {
-            if (digits.contains(ch)) {
-                continue;
-            }
             if (vowels.contains(ch)) {
                 countOfVowels++;
             }
