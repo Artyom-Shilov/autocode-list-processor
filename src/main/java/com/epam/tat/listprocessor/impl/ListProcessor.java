@@ -160,7 +160,7 @@ public class ListProcessor implements IListProcessor {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i < list.size(); i = i + 2) {
             String string = list.get(i);
-            if (string.length() < 2) {
+            if (string.length() == 0) {
                 throw new ListProcessorException("string is too short");
             }
             char first = string.charAt(0);
